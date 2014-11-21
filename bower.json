@@ -5,7 +5,7 @@
     "CoralineAda <coraline@idolhands.com>"
   ],
   "description": "JS and CSS for Society gem output",
-  "main": "society.js",
+  "main": [ "society.js", "society.css" ],
   "moduleType": [
     "globals"
   ],
@@ -14,8 +14,12 @@
   "ignore": [
     "**/.*",
     "node_modules",
+    "examples",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "d3": "~3.4.12"
+  }
 }
