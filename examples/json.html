@@ -17,22 +17,22 @@
 
     <script>
       var networkData = [
-        {"name":"AbstractCourse","edges":["Account","Account"]},
-        {"name":"Account","edges":["Account","Account","AccountUser","Alert","Account","Account","Account","Account","Account","Account","Account","AccountUser","Account","AccountAuthorizationConfig","Account","Account","Account","Account","Account","Account"]},
-        {"name":"AccountAuthorizationConfig","edges":["Account","AccountAuthorizationConfig","AccountAuthorizationConfig"]},
-        {"name":"AccountNotification","edges":["Account","AccountNotificationRole"]},
-        {"name":"AccountNotificationRole","edges":["AccountNotification"]},
-        {"name":"AccountReport","edges":["Account"]},
-        {"name":"AccountUser","edges":["Account","AccountUser","AccountUser"]},
-        {"name":"Alert","edges":["AlertCriterion","Account","Account"]},
-        {"name":"AlertCriterion","edges":["Alert"]},
-        {"name":"Announcement","edges":[]},
-        {"name":"AppointmentGroup","edges":["AppointmentGroupContext","AppointmentGroupSubContext","AppointmentGroupSubContext","AppointmentGroupContext"]},
-        {"name":"AppointmentGroupContext","edges":["AppointmentGroup"]},
-        {"name":"AppointmentGroupSubContext","edges":["AppointmentGroup"]},
-        {"name":"AssessmentQuestion","edges":["AssessmentQuestionBank","AssessmentQuestionBank","AssessmentQuestion","AssessmentQuestion","AssessmentQuestionBank","AssessmentQuestion"]},
-        {"name":"AssessmentQuestionBank","edges":["AssessmentQuestion","AssessmentQuestionBankUser","Account"]},
-        {"name":"AssessmentQuestionBankUser","edges":["AssessmentQuestionBank"]}];
+        {"name":"AbstractCourse","relations":["Account","Account"]},
+        {"name":"Account","relations":["Account","Account","AccountUser","Alert","Account","Account","Account","Account","Account","Account","Account","AccountUser","Account","AccountAuthorizationConfig","Account","Account","Account","Account","Account","Account"]},
+        {"name":"AccountAuthorizationConfig","relations":["Account","AccountAuthorizationConfig","AccountAuthorizationConfig"]},
+        {"name":"AccountNotification","relations":["Account","AccountNotificationRole"]},
+        {"name":"AccountNotificationRole","relations":["AccountNotification"]},
+        {"name":"AccountReport","relations":["Account"]},
+        {"name":"AccountUser","relations":["Account","AccountUser","AccountUser"]},
+        {"name":"Alert","relations":["AlertCriterion","Account","Account"]},
+        {"name":"AlertCriterion","relations":["Alert"]},
+        {"name":"Announcement","relations":[]},
+        {"name":"AppointmentGroup","relations":["AppointmentGroupContext","AppointmentGroupSubContext","AppointmentGroupSubContext","AppointmentGroupContext"]},
+        {"name":"AppointmentGroupContext","relations":["AppointmentGroup"]},
+        {"name":"AppointmentGroupSubContext","relations":["AppointmentGroup"]},
+        {"name":"AssessmentQuestion","relations":["AssessmentQuestionBank","AssessmentQuestionBank","AssessmentQuestion","AssessmentQuestion","AssessmentQuestionBank","AssessmentQuestion"]},
+        {"name":"AssessmentQuestionBank","relations":["AssessmentQuestion","AssessmentQuestionBankUser","Account"]},
+        {"name":"AssessmentQuestionBankUser","relations":["AssessmentQuestionBank"]}];
 
       Society.generate("#network", {
         data: {
