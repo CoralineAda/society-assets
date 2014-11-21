@@ -1,13 +1,29 @@
 .society-graph {
-  font-size: 12px;
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .society-heatmap-bg {
   fill: #eee;
 }
 
-.society-node {
-  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+.society-heatmap-select,
+.society-network-toggle {
+  display: block;
+  margin-bottom: 1em;
+  font: 300 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.society-heatmap-select {
+  display: block;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  background-image: none;
 }
 
 .society-link {

@@ -1,31 +1,43 @@
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Society Heatmap</title>
-    <style>@import url(../society.css);</style>
+    <title>Society Visualizations</title>
+
     <script src="../bower_components/d3/d3.min.js"></script>
     <script src="../society.js"></script>
+
+    <link rel="stylesheet" href="../society.css" />
   </head>
   <body>
 
-    <h2>Heatmap</h2>
-
-    <div id="heatmap" style="height: 100%; width: 100%;"></div>
-
-    <hr size="1" />
-
     <h2>Network</h2>
 
-    <div id="network" style="height: 100%; width: 100%;"></div>
+    <div id="network"></div>
 
     <script>
-      Society.networkGraph("data/network.json", {
-        json: networkPath
-      });
-      Society.heatmapPath("data/heatmap.json", {
-        json: heatmapPath
+      var networkData = [
+        {"name":"AbstractCourse","edges":["Account","Account"]},
+        {"name":"Account","edges":["Account","Account","AccountUser","Alert","Account","Account","Account","Account","Account","Account","Account","AccountUser","Account","AccountAuthorizationConfig","Account","Account","Account","Account","Account","Account"]},
+        {"name":"AccountAuthorizationConfig","edges":["Account","AccountAuthorizationConfig","AccountAuthorizationConfig"]},
+        {"name":"AccountNotification","edges":["Account","AccountNotificationRole"]},
+        {"name":"AccountNotificationRole","edges":["AccountNotification"]},
+        {"name":"AccountReport","edges":["Account"]},
+        {"name":"AccountUser","edges":["Account","AccountUser","AccountUser"]},
+        {"name":"Alert","edges":["AlertCriterion","Account","Account"]},
+        {"name":"AlertCriterion","edges":["Alert"]},
+        {"name":"Announcement","edges":[]},
+        {"name":"AppointmentGroup","edges":["AppointmentGroupContext","AppointmentGroupSubContext","AppointmentGroupSubContext","AppointmentGroupContext"]},
+        {"name":"AppointmentGroupContext","edges":["AppointmentGroup"]},
+        {"name":"AppointmentGroupSubContext","edges":["AppointmentGroup"]},
+        {"name":"AssessmentQuestion","edges":["AssessmentQuestionBank","AssessmentQuestionBank","AssessmentQuestion","AssessmentQuestion","AssessmentQuestionBank","AssessmentQuestion"]},
+        {"name":"AssessmentQuestionBank","edges":["AssessmentQuestion","AssessmentQuestionBankUser","Account"]},
+        {"name":"AssessmentQuestionBankUser","edges":["AssessmentQuestionBank"]}];
+
+      Society.generate("#network", {
+        data: {
+          json: networkData
+        }
       });
     </script>
 

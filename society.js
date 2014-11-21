@@ -24,8 +24,12 @@
   };
 
   NetworkGraph.prototype.init = function() {
-    this.element.append('button')
-      .text('Toggle Isolated Nodes')
+    var label = this.element.append('label')
+      .text('Show isolated nodes')
+      .attr('class', 'society-network-toggle')
+    label.append('input')
+      .attr('type', 'checkbox')
+      .attr('checked', 'checked')
       .on('click', this.toggleIsolatedNodes.bind(this));
     this.svg = this.element.append('svg')
       .attr('class', 'society-graph')
@@ -224,7 +228,9 @@
         z = d3.scale.linear().domain([0, 4]).clamp(true),
         c = d3.scale.category10().domain(d3.range(10));
 
-    var orderSelect = this.element.append('select').text('Order by:');
+    var orderSelect = this.element.append('select')
+      .attr('class', 'society-heatmap-select')
+      .text('Order by:');
     orderSelect.append('option').text('by Name').attr('value', 'name');
     orderSelect.append('option').text('by Frequency').attr('value', 'count');
     orderSelect.append('option').text('by Cluster').attr('value', 'group');
