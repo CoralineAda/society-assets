@@ -196,7 +196,7 @@
       return klass.name;
     });
     json.forEach(function(klass) {
-      klass.edges.forEach(function(edge) {
+      klass.relations.forEach(function(edge) {
         if (klass.name === edge) return;
         var i = names.indexOf(edge);
         json[i]._HAS_INCOMING_ = true;
@@ -207,7 +207,7 @@
       var notSelfReference = function(edge) {
         return edge !== klass.name;
       };
-      if (klass.edges.filter(notSelfReference).length || klass._HAS_INCOMING_) {
+      if (klass.relations.filter(notSelfReference).length || klass._HAS_INCOMING_) {
         filtered.push(klass);
       }
     });
