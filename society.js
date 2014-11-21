@@ -25,12 +25,12 @@
 
   NetworkGraph.prototype.init = function() {
     var label = this.element.append('label')
-      .text('Show isolated nodes')
       .attr('class', 'society-network-toggle')
     label.append('input')
       .attr('type', 'checkbox')
       .attr('checked', 'checked')
       .on('click', this.toggleIsolatedNodes.bind(this));
+    label.append('span').text('Show isolated nodes')
     this.svg = this.element.append('svg')
       .attr('class', 'society-graph')
       .attr('width', this.diameter)
