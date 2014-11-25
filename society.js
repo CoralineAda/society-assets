@@ -19,8 +19,19 @@
     this.innerRadius = this.radius - 260;
 
     this.element = element;
-    this.data = data;
+    this.data = this.transformData(data);
     this.includeIsolatedNodes = true;
+  };
+
+  NetworkGraph.prototype.transformData = function(data) {
+    var nodes = data.nodes.map(function(node) {
+      return { name: node.name, relations: [] };
+    });
+    data.edges.forEach(function(edge) {
+      var targetName = nodes[edge.to].name;
+      nodes[edge.from].relations.push(targetName);
+    });
+    return nodes;
   };
 
   NetworkGraph.prototype.init = function() {
@@ -216,11 +227,22 @@
 
   var Heatmap = function(element, data) {
     this.element = element;
-    this.data = data;
+    this.data = this.transformData(data);
 
     this.margin = {top: 200, right: 0, bottom: 10, left: 200};
     this.width = 800;
     this.height = 800;
+  };
+
+  Heatmap.prototype.transformData = function(data) {
+    return {
+      nodes: data.nodes.map(function(node) {
+        return { name: node.name, group: 1 };
+      }),
+      links: data.edges.map(function(edge) {
+        return { source: edge.from, target: edge.to, value: 1 };
+      })
+    };
   };
 
   Heatmap.prototype.init = function() {
