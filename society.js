@@ -321,7 +321,7 @@
         .attr("text-anchor", "end")
         .text(function(d, i) { return nodes[i].name; });
 
-    var column = coOccurrenceSvg.selectAll(".column")
+    var column = coOccurrenceSvg.selectAll(".society-column")
         .data(matrix)
       .enter().append("g")
         .attr("class", "society-column")
@@ -338,7 +338,7 @@
         .text(function(d, i) { return nodes[i].name; });
 
     function row(row) {
-      var cell = d3.select(this).selectAll(".cell")
+      var cell = d3.select(this).selectAll(".society-cell")
           .data(row.filter(function(d) { return d.z; }))
           .enter().append("rect")
             .attr("class", "society-cell")
@@ -368,7 +368,7 @@
       t.selectAll(".society-row")
           .delay(function(d, i) { return x(i) * 4; })
           .attr("transform", function(d, i) { return "translate(0," + x(i) + ")"; })
-        .selectAll(".cell")
+        .selectAll(".society-cell")
           .delay(function(d) { return x(d.x) * 4; })
           .attr("x", function(d) { return x(d.x); });
 
