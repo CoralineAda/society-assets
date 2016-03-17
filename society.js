@@ -21,17 +21,18 @@
     this.element = element;
     this.data = this.transformData(data);
     this.includeIsolatedNodes = true;
+    this.depsFiltered = false;
   };
 
   NetworkGraph.prototype.transformData = function(data) {
-    var nodes = data.nodes.map(function(node) {
-      return { name: node.name, relations: [] };
-    });
-    data.edges.forEach(function(edge) {
-      var targetName = nodes[edge.to].name;
-      nodes[edge.from].relations.push(targetName);
-    });
-    return nodes;
+    return(Object.keys(data).map(function(node) {
+      return {
+        name: node,
+        relations: Object.keys(data[node]).filter(function(edge) {
+          return(Object.keys(data).indexOf(edge) != -1);
+        })
+      };
+    }));
   };
 
   NetworkGraph.prototype.init = function() {
@@ -130,6 +131,38 @@
           .classed("society-node--source", false);
     };
 
+    var toggleFilterOnlyDeps = function(d) {
+      if (this.depsFiltered == false) {
+  nodeAnchor.selectAll(".society-node--faded")
+    .style("visibility", "hidden");
+  linkAnchor.selectAll(".society-link")
+    .filter(":not(.society-link--source)")
+    .filter(":not(.society-link--target)")
+    .style("visibility", "hidden");
+  this.depsFiltered = true;
+      } else {
+  d3
+    .selectAll(".society-node")
+    .style("visibility", "visible");
+  d3
+    .selectAll(".society-link")
+    .style("visibility", "visible");
+  this.depsFiltered = false;
+      }
+    };
+
+    document.onkeydown = function(evt) {
+      evt = evt || window.event;
+      if (evt.keyCode == 27) {
+        d3
+          .selectAll(".society-node")
+          .style("visibility", "visible");
+        d3
+          .selectAll(".society-link")
+          .style("visibility", "visible");
+      }
+    };
+
     var newNodes = node.enter().append("text")
       .attr("opacity", 0)
       .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 64) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
@@ -138,7 +171,8 @@
       .attr("dy", ".31em")
       .text(function(d) { return d.key; })
       .on("mouseover", mouseovered)
-      .on("mouseout", mouseouted);
+      .on("mouseout", mouseouted)
+      .on("click", toggleFilterOnlyDeps);
 
     link.enter().append("path")
       .attr("opacity", 0)
@@ -247,14 +281,20 @@
     };
 
     var findCluster = data.clusters ? _findCluster : function() { return 0; };
+    var dataKeys = Object.keys(data);
 
     return {
-      nodes: data.nodes.map(function(node, index) {
-        return { name: node.name, group: findCluster(index) };
+      nodes: dataKeys.map(function(node, index) {
+        return { name: node, group: findCluster(index) };
       }),
-      links: data.edges.map(function(edge) {
-        return { source: edge.from, target: edge.to, value: 1 };
-      })
+      links: dataKeys.reduce(function(edges, node, source) {
+        var new_edges = Object.keys(data[node]).filter(function(edge) {
+          return(Object.keys(data).indexOf(edge) != -1);
+        }).map(function(edge) {
+          return { source: source, target: dataKeys.indexOf(edge), value: data[node][edge] };
+        });
+        return(edges.concat(new_edges));
+      }, [])
     };
   };
 
