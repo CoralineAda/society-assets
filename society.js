@@ -263,12 +263,16 @@
         z = d3.scale.linear().domain([0, 4]).clamp(true),
         c = d3.scale.category10().domain(d3.range(10));
 
+    var orderSelectLabel = this.element.append('label')
+      .attr("for", "society-heatmap-select")
+      .attr('class', 'society-heatmap-select-label')
+      .text('Order by:');
+
     var orderSelect = this.element.append('select')
       .attr('class', 'society-heatmap-select')
-      .text('Order by:');
-    orderSelect.append('option').text('by Name').attr('value', 'name');
-    orderSelect.append('option').text('by Frequency').attr('value', 'count');
-    orderSelect.append('option').text('by Cluster').attr('value', 'group');
+    orderSelect.append('option').text('Name').attr('value', 'name');
+    orderSelect.append('option').text('Frequency').attr('value', 'count');
+    orderSelect.append('option').text('Cluster').attr('value', 'group');
     orderSelect.on('change', function() {
       order(this.value);
     });
